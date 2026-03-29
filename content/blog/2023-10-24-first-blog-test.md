@@ -1,0 +1,12 @@
+---
+title: "First blog test"
+date: 2023-10-24 00:00:00 +09:00
+tags: [Start]
+category: Talk
+giscus_comments: true
+---
+
+
+<article class="page sans" id="331451cf-7b79-8016-8ff0-d1f4620b8085"><header><p class="page-description" dir="auto"></p></header><div class="page-body"><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-801e-a4fe-ed2073059f15">아 아 마이크 테스트</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8067-a65e-f631e774eb13">코딩블로그를 시작하게 되었다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-80c5-9ec6-e68ac6fa9900">개인적으로 수학학원 강사를 하면서 느낀건데, 내가 공부하는 현역때보다 남에게 정보를 알려주고 가르쳐줄 정도가 된다면 훨씬 깊고 오래 기억에 남게 공부가 되는걸 느꼈다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8053-bbda-ca078ed0dcdd">그래서 나도 코딩 블로그를 작성하면서 힘들었던 부분과 흥미로운 부분을 기록해보고자 한다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8061-9269-f8e546a8ebf0">처음에 코딩 블로그를 만들려고 할 때 NAVER, Tistory, github 중에서 고민을 했다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8082-ac84-c953d780da0e">각각의 특색에 맞게 분석해본 결과, 네이버는 내 사진 올리는 일상 블로그 느낌이 맞는 것 같고, Tistory와 github을 고민했는데, 개발자라면 github이 처음엔 힘들더라도 최고라는 느낌을 받아 github<br/>블로그를 만들게 되었다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8018-92d0-e350d386f0c9">하지만...</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8044-b517-db9e43945bd5">이틀동안 github에서 오류 때문에 어쩔 줄 몰라 repositories 삭제만 10번 하고 처음부터 다시시작을 하며 약 수십번 블로그를 만들어 본거 같다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8007-961b-f6443e03cf28">오류코드 복사하고 구글링해서 이러쿵 저러쿵 따라해서 겨우 블로그를 만들 수 있었다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8001-90f6-dbfac00cdd91">부딪히고 해결해나가다 보니 이런 방법도 좋은 것 같다.</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-8080-8029-d0c2a678e166">마크다운 문법을 아직 공부 안해서 가독성 떨어지게 텍스트만 쓰고 있는데, 블로그를 성공적으로 만들어서 신나서 일단 올려봤다!</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-80d0-a66b-d8179267de28">
+</p></div><div dir="auto" style="display:contents"><p class="" id="331451cf-7b79-80d5-b0c1-f0dd50f949b7">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span>

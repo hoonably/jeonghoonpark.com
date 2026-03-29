@@ -1,0 +1,406 @@
+@import "tailwindcss";
+
+
+/* =========================================================
+   Design Tokens
+   ========================================================= */
+:root {
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+
+  /* Navbar */
+  --navbar-height: 60px;
+  --navbar-height-mobile: auto;
+
+  /* Spacing */
+  --section-padding-y: 5rem;
+  --max-width: 900px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0d1117;
+  --color-bg-secondary: #01040a;
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #334155;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  /* Reserve space for fixed navbar */
+  padding-top: var(--navbar-height);
+}
+
+@media (max-width: 767px) {
+
+  /* Reduce global scale slightly (from 92% to 88%) */
+  html {
+    font-size: 78%;
+  }
+
+  /* Exclude navbar from the scale down as requested */
+  .navbar {
+    font-size: 1.1rem;
+    /* Compensate for the root font size decrease */
+  }
+
+  /* Ensure the nav links don't get too small */
+  .nav-link {
+    font-size: 0.95rem;
+  }
+
+  /* 모바일에서는 상단바가 sticky이므로 컨텐츠와 겹치지 않아 여백이 필요 없습니다. */
+  body {
+    padding-top: 0;
+  }
+
+  /* 메인 포트폴리오 화면에서만(하나의 스크롤 컨테이너 사용) 100vh 및 스크롤 잠금 적용 */
+  html.home-page-active {
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    /* Prevent window scroll */
+  }
+
+  body.home-page-active {
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    /* Prevent window scroll */
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   One-page Scroll Container
+   ========================================================= */
+
+/* Mobile: snap scroll - each section fills the screen */
+@media (max-width: 767px) {
+  #scroll-container {
+    flex: 1;
+    /* fill remaining height after sticky navbar */
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+  }
+
+  #scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+    min-height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    padding-block: 1rem !important;
+  }
+
+  /* Dynamic fix for long sections (where content height > viewport height): 
+     Add buffers at both top and bottom to prevent accidental snaps while scrolling. */
+  .snap-section.is-long-section:not(#hero) {
+    padding-top: 10dvh !important;
+    padding-bottom: 20dvh !important;
+  }
+
+
+
+
+  /* Vertical centering trick: center if small, start from top if large */
+  .snap-section>.container {
+    margin-block: auto !important;
+  }
+}
+
+/* Desktop: Hero fills the full viewport height — scrolling down naturally lands on Experience */
+@media (min-width: 768px) {
+  #hero.snap-section {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .snap-section:not(#hero) {
+    min-height: auto;
+  }
+}
+
+
+
+
+/* =========================================================
+   Layout Utilities
+   ========================================================= */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* 2-column grid utility for Markdown (always side-by-side) */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+
+.grid-2>* {
+  margin: 0 !important;
+}
+
+.section {
+  padding-block: var(--section-padding-y);
+}
+
+.section:nth-of-type(odd) {
+  background-color: var(--color-bg-secondary);
+}
+
+.section:nth-of-type(even) {
+  background-color: var(--color-bg);
+}
+
+/* Optional: if you still want to manually override or for specific components */
+.section-alt {
+  background-color: var(--color-bg-secondary) !important;
+}
+
+/* =========================================================
+   Typography
+   ========================================================= */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.15rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+/* =========================================================
+   Navbar
+   ========================================================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
+  z-index: 100;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.navbar.scrolled {
+  border-color: var(--color-border);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  padding-block: 0.5rem;
+  min-height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  overflow: hidden;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-text);
+  background-color: var(--color-bg-secondary);
+}
+
+.navbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Navbar Portfolio back button */
+.nav-portfolio-btn {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding-inline: 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-decoration: none;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-portfolio-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+/* Theme toggle button */
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.theme-btn:hover {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-text-muted);
+}
+
+/* Mobile: navbar becomes sticky and auto-height to accommodate wrapped links */
+@media (max-width: 767px) {
+  .navbar {
+    position: sticky;
+    height: auto;
+    overflow: visible;
+  }
+
+  header.navbar .navbar-inner {
+    min-height: unset;
+    padding-block: 0.35rem;
+    padding-inline: 1rem;
+    /* Reduced from 1.5rem to give more room */
+    gap: 0;
+    overflow: visible;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center;
+  }
+
+  /* 서브 페이지(ex: /blog)에서는 중앙 메뉴가 없으므로 양끝 정렬로 복귀 */
+  header.navbar .navbar-inner.blog-nav {
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+    /* Scaled up to compensate root font-size reduction */
+    flex-shrink: 0;
+  }
+
+  .navbar-links {
+    flex-wrap: nowrap !important;
+    justify-self: center;
+    justify-content: center;
+    gap: 0.15rem;
+    padding-block: 0;
+    flex-basis: auto !important;
+    order: 0 !important;
+  }
+
+  @media (max-width: 320px) {
+    header.navbar .navbar-inner {
+      padding-inline: 0.35rem;
+    }
+
+    .navbar-links {
+      gap: 0.02rem;
+    }
+
+    .nav-link {
+      font-size: 0.48rem;
+      padding-inline: 0.2rem;
+    }
+  }
+
+  .nav-link {
+    /* Slightly scaled up to compensate root font-size reduction */
+    font-size: clamp(0.6rem, 2.8vw, 0.85rem);
+    padding: 0.2rem 0.25rem;
+    white-space: nowrap;
+  }
+
+  .navbar-controls {
+    justify-self: end;
+    flex-shrink: 0;
+  }
+}
