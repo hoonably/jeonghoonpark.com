@@ -256,9 +256,9 @@ export default function Navbar() {
         {/* Controls */}
         <div className="navbar-controls">
           {pathname !== "/" ? (
-            <Link href="/" className="nav-portfolio-btn">
+            <a href="/" className="nav-portfolio-btn">
               Portfolio ↗
-            </Link>
+            </a>
           ) : (
             <Link href="/blog" className="nav-portfolio-btn">
               Blog ↗
