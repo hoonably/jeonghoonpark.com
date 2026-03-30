@@ -3,7 +3,7 @@ import { getBlogPostsAction } from "@/app/actions";
 import BlogClientPage from "./BlogClientPage";
 
 export const metadata: Metadata = {
-  title: "Blog | Jeonghoon Park",
+  title: "Blog",
   description: "Reflections on computer science, AI, and the occasional off-topic ramble.",
 };
 
