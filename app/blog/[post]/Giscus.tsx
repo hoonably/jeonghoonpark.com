@@ -25,7 +25,7 @@ export default function Giscus() {
 
   useEffect(() => {
     if (!ref.current) return;
-    
+
     // Cleanup previous script if exists
     const container = ref.current;
     container.innerHTML = '';
@@ -33,12 +33,12 @@ export default function Giscus() {
     const script = document.createElement('script');
     script.src = "https://giscus.app/client.js";
     script.setAttribute("data-repo", "hoonably/jeonghoonpark.com");
-    script.setAttribute("data-repo-id", "R_kgDON7uKxQ");
-    script.setAttribute("data-category", "Announcements");
-    script.setAttribute("data-category-id", "DIC_kwDON7uKxc4Cm_Zz");
+    script.setAttribute("data-repo-id", "R_kgDOR0AiMg");
+    script.setAttribute("data-category", "Giscus");
+    script.setAttribute("data-category-id", "DIC_kwDOR0AiMs4C5lh1");
     script.setAttribute("data-mapping", "pathname");
     script.setAttribute("data-strict", "0");
-    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-reactions-enabled", "0");
     script.setAttribute("data-emit-metadata", "0");
     script.setAttribute("data-input-position", "bottom");
     // Use dark_dimmed for darker effect

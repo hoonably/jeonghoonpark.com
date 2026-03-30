@@ -158,13 +158,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
 
         <PostNavigation currentSlug={resolvedParams.post} category={category} />
 
-        {postData.data.giscus_comments && (
-          <div style={{ marginTop: "4rem", paddingTop: "2rem" }}>
-            <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem", textAlign: "center" }}>
-              Giscus comments will appear here (Setup required)
-            </p>
-          </div>
-        )}
+        <Giscus />
         <Footer />
       </article>
     </main>
