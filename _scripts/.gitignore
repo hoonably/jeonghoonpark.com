@@ -1,0 +1,8 @@
+# Ignore everything in this directory
+*
+
+# But track these files
+!.gitignore
+!convert_webp.py
+!notion_to_blog.py
+!README.md
