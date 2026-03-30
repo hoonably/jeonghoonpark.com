@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
-import { profile } from '@/data/profile';
+
+export const dynamic = 'force-static';
 
 export default function robots(): MetadataRoute.Robots {
   return {
