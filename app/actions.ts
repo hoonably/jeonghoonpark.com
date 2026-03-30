@@ -1,4 +1,4 @@
-"use server";
+// Server-side data fetching utilities (called from Server Components at build time)
 
 import { promises as fs } from "fs";
 import path from "path";
@@ -52,7 +52,7 @@ export async function getProjectsAction() {
       mdFiles.map(async (filename) => {
         const filePath = path.join(projectsDir, filename);
         const fileContent = await fs.readFile(filePath, "utf8");
-        const { data } = matter(fileContent);
+        const { data, content } = matter(fileContent);
 
         return {
           slug: filename.replace(".md", ""),
@@ -61,6 +61,7 @@ export async function getProjectsAction() {
           period: data.period || "N/A",
           tech: data.tech || (data.category ? [data.category] : []),
           image: data.img || null,
+          content: content || "",
           links: {
             github: data.github || null,
             demo: data.demo || null,
@@ -92,9 +93,7 @@ export async function getTeachingAction() {
       mdFiles.map(async (filename) => {
         const filePath = path.join(teachingDir, filename);
         const fileContent = await fs.readFile(filePath, "utf8");
-        const { data } = matter(fileContent);
-
-        // Map frontmatter fields:
+        const { data, content } = matter(fileContent);
         // frontmatter.description -> title
         // frontmatter.title -> org
         // frontmatter.period -> period
@@ -105,6 +104,7 @@ export async function getTeachingAction() {
           org: data.title || "",
           period: data.period || "N/A",
           category: data.category || "General",
+          content: content || "",
         };
       })
     );
@@ -130,7 +130,7 @@ export async function getPublicationsAction() {
       mdFiles.map(async (filename) => {
         const filePath = path.join(pubDir, filename);
         const fileContent = await fs.readFile(filePath, "utf8");
-        const { data } = matter(fileContent);
+        const { data, content } = matter(fileContent);
 
         return {
           slug: filename.replace(".md", ""),
@@ -141,6 +141,7 @@ export async function getPublicationsAction() {
           type: data.type || "preprint",
           badge: data.badge || "",
           abstract: data.abstract || "",
+          content: content || "",
           links: {
             paper: data.paper || null,
             arxiv: data.arxiv || null,

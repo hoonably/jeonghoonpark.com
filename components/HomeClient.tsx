@@ -11,7 +11,6 @@ import Footer from "@/components/layout/Footer";
 import DetailsModal from "@/components/DetailsModal";
 import { Project, Publication, TeachingItem } from "@/types";
 import { useScrollEffects } from "@/hooks/useScrollEffects";
-import { getMarkdownAction } from "@/app/actions";
 
 interface HomeClientProps {
   projectsList: Project[];
@@ -43,13 +42,14 @@ export default function HomeClient({ projectsList, teachingList, publicationsLis
     }
   }, [selectedItem]);
 
-  const handleItemClick = async (item: Project | Publication | TeachingItem, category: string) => {
+  const handleItemClick = (item: Project | Publication | TeachingItem, category: string) => {
     setActiveCategory(category);
     
     let modalData: any = {
       title: item.title,
       period: (item as any).period || (item as any).year?.toString(),
       slug: item.slug,
+      content: item.content || "",
     };
 
     if (category === "projects") {
@@ -63,23 +63,7 @@ export default function HomeClient({ projectsList, teachingList, publicationsLis
       modalData.tech = [teach.org].filter(Boolean);
     }
 
-    if (item.slug) {
-      const res = await getMarkdownAction(category, item.slug);
-      if (res && res.content) {
-        setSelectedItem({
-          ...modalData,
-          content: res.content,
-        });
-        return;
-      }
-    }
-
-    if (item.content) {
-      setSelectedItem({
-        ...modalData,
-        content: item.content,
-      });
-    }
+    setSelectedItem(modalData);
   };
 
   const getActiveList = () => {
