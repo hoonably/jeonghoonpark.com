@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
+import { formatYmdForDisplay } from "@/app/lib/date";
 
 type BlogPost = {
   slug: string;
@@ -30,8 +31,7 @@ function getCategoryStyle(category: string) {
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  return formatYmdForDisplay(dateStr, "short");
 }
 
 const PAGE_SIZE = 5;

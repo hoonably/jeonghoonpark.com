@@ -4,6 +4,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { getMarkdownAction, getBlogPostsAction } from "@/app/actions";
+import { formatYmdForDisplay, getYmdInSeoul } from "@/app/lib/date";
 import CodeBlock from "./CodeBlock";
 import "@/app/globals.css";
 import "../notion.css";
@@ -46,12 +47,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
   // Clean date parsing if needed
   let dateStr = "";
   if (date) {
-    const d = new Date(date);
-    if (!isNaN(d.getTime())) {
-      dateStr = d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-    } else {
-      dateStr = String(date);
-    }
+    const ymd = getYmdInSeoul(date);
+    dateStr = ymd ? formatYmdForDisplay(ymd, "long") : String(date);
   }
 
   const tagList = Array.isArray(tags) ? tags : (tags ? [tags] : []);
@@ -189,7 +186,7 @@ async function PostNavigation({ currentSlug, category }: { currentSlug: string; 
             <Link href={`/blog/${prevPost.slug}`} className="post-nav-item post-nav-prev">
               <div className="nav-direction">← Older Post</div>
               <div className="nav-title">{prevPost.title}</div>
-              <div className="nav-date">{prevPost.date.toISOString().slice(0, 10)}</div>
+              <div className="nav-date">{prevPost.dateStr}</div>
             </Link>
           ) : (
             <div className="nav-placeholder"></div>
@@ -201,7 +198,7 @@ async function PostNavigation({ currentSlug, category }: { currentSlug: string; 
             <Link href={`/blog/${nextPost.slug}`} className="post-nav-item post-nav-next">
               <div className="nav-direction">Newer Post →</div>
               <div className="nav-title">{nextPost.title}</div>
-              <div className="nav-date">{nextPost.date.toISOString().slice(0, 10)}</div>
+              <div className="nav-date">{nextPost.dateStr}</div>
             </Link>
           ) : (
             <div className="nav-placeholder"></div>
@@ -217,4 +214,3 @@ async function PostNavigation({ currentSlug, category }: { currentSlug: string; 
     </>
   );
 }
-

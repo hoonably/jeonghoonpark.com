@@ -3,6 +3,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { getYmdInSeoul } from "@/app/lib/date";
 
 /**
  * Reads markdown content with YAML frontmatter from the filesystem.
@@ -193,7 +194,7 @@ export async function getBlogPostsAction() {
           slug: displaySlug,
           title: data.title || "Untitled",
           date: data.date ? new Date(data.date) : new Date(0),
-          dateStr: data.date ? new Date(data.date).toISOString().slice(0, 10) : "",
+          dateStr: getYmdInSeoul(data.date),
           category: data.category || "Uncategorized",
           tags: Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []),
           excerpt,
@@ -208,6 +209,5 @@ export async function getBlogPostsAction() {
     return [];
   }
 }
-
 
 
