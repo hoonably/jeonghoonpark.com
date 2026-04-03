@@ -54,8 +54,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
   const tagList = Array.isArray(tags) ? tags : (tags ? [tags] : []);
 
   return (
-    <main className="blog-page">
+    <main className="blog-page blog-post-page">
       <div className="blog-hero">
+        <Link href="/blog" className="blog-back-btn blog-back-btn-inline">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path
+              d="M11.667 5L6.667 10L11.667 15M7.361 10H15"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span>Back to Blog List</span>
+        </Link>
+
         <h1 className="blog-hero-title">{title || "Untitled"}</h1>
         
         {/* Post Metadata Row */}
