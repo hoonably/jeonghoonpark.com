@@ -126,7 +126,7 @@
 }
 
 .profile-photo {
-  width: 144px; /* Default for mobile (4/5 of 180px) */
+  width: 120px;
   max-width: 100%;
   height: auto;
   border-radius: 40px;
@@ -138,7 +138,7 @@
 
 @media (min-width: 768px) {
   .profile-photo {
-    width: 220px;
+    width: 190px;
   }
 }
 
@@ -183,7 +183,8 @@
 /* Enable desktop layout for hero/about if it wasn't there */
 @media (min-width: 768px) {
   .about-grid {
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 210px 1fr;
+    /* Reduced from 240px */
     align-items: center;
     gap: 1.75rem;
   }
@@ -620,7 +621,8 @@
   margin-top: 0.1rem;
   font-size: clamp(0.75rem, 3.8vw, 1rem);
   line-height: 1.4;
-  overflow-wrap: break-word; /* Allow wrapping long text */
+  overflow-wrap: break-word;
+  /* Allow wrapping long text */
 }
 
 .timeline-location {
@@ -816,7 +818,8 @@
 
 @media (max-width: 768px) {
   .scroll-hint {
-    bottom: 4.5rem; /* Adjusted for mobile to avoid overlap with footer */
+    bottom: 4.5rem;
+    /* Adjusted for mobile to avoid overlap with footer */
   }
 }
 
@@ -838,6 +841,14 @@
 }
 
 @keyframes scrollHintBounce {
-  0%, 55%, 100% { transform: translateX(-50%) translateY(0px); }
-  35% { transform: translateX(-50%) translateY(7px); }
+
+  0%,
+  55%,
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+
+  35% {
+    transform: translateX(-50%) translateY(7px);
+  }
 }
