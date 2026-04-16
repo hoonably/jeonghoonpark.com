@@ -13,6 +13,7 @@ export const educations: Education[] = [
     period: "2020.03 – Present",
     image: "/images/logo/UNIST_logo.webp",
     bullets: [
+      "Early Graduation (one semester)",
       "Academic Excellence Award – GPA 4.0+/4.3 (Fall 2024, Spring 2025)",
       "Clubs: EarthCops (Soccer ⚽️), Unplugged (Band 🎸)",
     ],
