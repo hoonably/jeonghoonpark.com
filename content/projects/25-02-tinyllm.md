@@ -1,6 +1,6 @@
 ---
 title: "TinyLLM"
-description: "Explored LLM architectures for resource-constrained environments, analyzing accuracy and inference time across evaluation sets."
+description: "Explored efficient LLM architectures for resource-constrained environments."
 period: "2025.01 – 2025.02"
 img: /images/projects/tinyllm.webp
 tech: ["Python", "PyTorch", "LLM", "On-Device AI"]

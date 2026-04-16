@@ -1,6 +1,6 @@
 ---
 title: "One-Year Continuous Problem Solving Challenge"
-description: "Solved algorithmic problems daily for 366 consecutive days in 2024, accumulating 1,000+ solutions primarily in C++."
+description: "Solved 1,000+ algorithmic problems every day of 2024 for all 366 consecutive days."
 period: "2024.01 – 2024.12"
 img: /images/projects/baekjoon.webp
 tech: ["C++", "Algorithms", "Data Structures"]

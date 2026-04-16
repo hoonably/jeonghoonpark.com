@@ -1,6 +1,6 @@
 ---
 title: "Pintos Project"
-description: "Implemented core OS components in Stanford’s Pintos (threads, syscalls, user programs, VM, and indexed file system) as a two-person project."
+description: "Implemented operating system components including threading, virtual memory, and file systems."
 period: "2025.03 – 2025.06"
 img: /images/projects/pintos.webp
 tech: ["C", "OS", "Systems Programming"]
