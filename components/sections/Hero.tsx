@@ -61,12 +61,7 @@ export default function Hero() {
               <h1 className="hero-name" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>{profile.name}</h1>
 
               {/* Tagline */}
-              <p className="hero-tagline" style={{
-                marginBottom: '1rem',
-                color: 'var(--color-accent)',
-                fontWeight: 700,
-                fontSize: '0.95rem'
-              }}>
+              <p className="hero-tagline" style={{ marginBottom: '1rem' }}>
                 <span className="tagline-part">{profile.role}</span>
                 <span className="tagline-sep"> · </span>
                 <span className="tagline-part">Computer Science & Engineering</span>

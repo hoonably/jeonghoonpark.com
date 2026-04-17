@@ -1,6 +1,6 @@
 ---
 title: "Multi-Agent Drone Exploration"
-description: "Developed a multi-agent drone system with autonomous coordination and path planning."
+description: "Developed a multi drone system with autonomous coordination and planning."
 period: "2025.09 – 2025.12"
 img: /images/projects/drone-exploration.webp
 tech: ["Unity", "Arduino", "C#", "GPS"]

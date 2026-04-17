@@ -1,6 +1,6 @@
 ---
 title: "Traveling Salesman Problem (TSP) Solver"
-description: "Implemented classical TSP algorithms and proposed a novel MCMF-based heuristic for improved solution quality."
+description: "Implemented TSP algorithms and proposed a novel MCMF-based heuristic."
 period: "2025.05 – 2025.06"
 img: /images/projects/tsp.webp
 tech: ["C++", "Algorithms", "Graph Theory"]

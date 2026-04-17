@@ -1,6 +1,6 @@
 ---
 title: "Sorting Algorithm Analysis"
-description: "Benchmarked and analyzed multiple sorting algorithms across diverse input conditions."
+description: "Benchmarked and analyzed multiple sorting algorithms"
 period: "2025.03 – 2025.04"
 img: /images/projects/sort.webp
 tech: ["C++", "Algorithms"]

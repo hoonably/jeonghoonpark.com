@@ -24,6 +24,13 @@ export default function Teaching({ onItemClick, items }: TeachingProps) {
       <div className="container">
         <p className="section-label">Education</p>
         <h2 className="section-title">Teaching</h2>
+        <p className="section-desc" style={{ 
+          fontSize: '0.85rem', 
+          marginTop: '-0.5rem', 
+          marginBottom: '1rem' 
+        }}>
+          Click a course title to view more details.
+        </p>
 
         <div className="teaching-container">
           {categories.map((category) => (
@@ -33,20 +40,18 @@ export default function Teaching({ onItemClick, items }: TeachingProps) {
                 {groupedItems[category].map((item, i) => (
                   <li key={item.slug || i} className="teaching-item">
                     <div className="teaching-main">
-                      <div className="teaching-info">
-                        {(item.slug || item.content) ? (
-                          <span
-                            className="teaching-title clickable-title"
-                            onClick={() => onItemClick(item)}
-                          >
-                            {item.title}
-                          </span>
-                        ) : (
-                          <span className="teaching-title">{item.title}</span>
-                        )}
-                        <span className="teaching-org">{item.org}</span>
-                      </div>
+                      {(item.slug || item.content) ? (
+                        <span
+                          className="teaching-title clickable-title"
+                          onClick={() => onItemClick(item)}
+                        >
+                          {item.title}
+                        </span>
+                      ) : (
+                        <span className="teaching-title">{item.title}</span>
+                      )}
                       <span className="teaching-period">{item.period}</span>
+                      <span className="teaching-org">{item.org}</span>
                     </div>
                   </li>
                 ))}
