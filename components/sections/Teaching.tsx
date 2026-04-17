@@ -31,16 +31,23 @@ export default function Teaching({ onItemClick, items }: TeachingProps) {
               <h3 className="teaching-role-title">{category}</h3>
               <ul className="teaching-list">
                 {groupedItems[category].map((item, i) => (
-                  <li
-                    key={item.slug || i}
-                    className={`teaching-item${(item.slug || item.content) ? " clickable" : ""}`}
-                    onClick={() => (item.slug || item.content) && onItemClick(item)}
-                  >
-                    <div className="teaching-content">
-                      <span className="teaching-title">{item.title}</span>
-                      <p className="teaching-org">{item.org}</p>
+                  <li key={item.slug || i} className="teaching-item">
+                    <div className="teaching-main">
+                      <div className="teaching-info">
+                        {(item.slug || item.content) ? (
+                          <span
+                            className="teaching-title clickable-title"
+                            onClick={() => onItemClick(item)}
+                          >
+                            {item.title}
+                          </span>
+                        ) : (
+                          <span className="teaching-title">{item.title}</span>
+                        )}
+                        <span className="teaching-org">{item.org}</span>
+                      </div>
+                      <span className="teaching-period">{item.period}</span>
                     </div>
-                    <span className="teaching-period">{item.period}</span>
                   </li>
                 ))}
               </ul>
