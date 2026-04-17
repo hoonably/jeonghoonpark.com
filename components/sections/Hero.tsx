@@ -42,7 +42,7 @@ export default function Hero() {
         <div className="about-grid">
           <div className="profile-photo-wrapper">
             <Image
-              src="/images/profile.webp"
+              src="/images/profile.png"
               alt={profile.name}
               width={280}
               height={280}
@@ -53,100 +53,108 @@ export default function Hero() {
           </div>
 
           <div className="hero-content">
-            {/* Eyebrow */}
-            <p className="hero-eyebrow">👋 Welcome</p>
+            <div className="hero-header">
+              {/* Eyebrow */}
+              <p className="hero-eyebrow">👋 Welcome</p>
 
-            {/* Name */}
-            <h1 className="hero-name" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>{profile.name}</h1>
+              {/* Name */}
+              <h1 className="hero-name" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>{profile.name}</h1>
 
-            {/* Tagline */}
-            <p className="hero-tagline" style={{
-              marginBottom: '1rem',
-              color: 'var(--color-accent)',
-              fontWeight: 700,
-              fontSize: '0.95rem'
-            }}>
-              {profile.role} · {profile.affiliation}
-            </p>
-
-            {/* Bio integration */}
-            <div className="about-text" style={{ marginBottom: '1.5rem' }}>
-              {profile.bio.map((paragraph, i) => (
-                <p
-                  key={i}
-                  className={i === 1 ? "hero-bio-secondary" : ""}
-                  style={{ fontSize: '0.95rem', marginBottom: '0.5rem' }}
-                >
-                  {paragraph}
-                </p>
-              ))}
+              {/* Tagline */}
+              <p className="hero-tagline" style={{
+                marginBottom: '1rem',
+                color: 'var(--color-accent)',
+                fontWeight: 700,
+                fontSize: '0.95rem'
+              }}>
+                <span className="tagline-part">{profile.role}</span>
+                <span className="tagline-sep"> · </span>
+                <span className="tagline-part">Computer Science & Engineering</span>
+                <span className="tagline-sep"> · </span>
+                <span className="tagline-part">UNIST</span>
+              </p>
             </div>
 
-            {/* Action buttons */}
-            <div className="hero-actions">
-              {profile.cvUrl && (
-                <a
-                  href={profile.cvUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary"
-                >
-                  View CV ↗
-                </a>
-              )}
-              <a
-                href="/blog"
-                className="btn btn-outline"
-                style={{ borderColor: 'var(--color-accent)', color: 'var(--color-accent)' }}
-              >
-                Blog ↗
-              </a>
-            </div>
+            <div className="hero-body">
+              {/* Bio integration */}
+              <div className="about-text" style={{ marginBottom: '1.5rem' }}>
+                {profile.bio.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={i === 1 ? "hero-bio-secondary" : ""}
+                    style={{ fontSize: '0.95rem', marginBottom: '0.5rem' }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
 
-            {/* Social icons */}
-            <div className="hero-socials" style={{ marginTop: '1.5rem' }}>
-              {profile.email && (
+              {/* Action buttons */}
+              <div className="hero-actions">
+                {profile.cvUrl && (
+                  <a
+                    href={profile.cvUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    View CV ↗
+                  </a>
+                )}
                 <a
-                  href={`mailto:${profile.email}`}
-                  className="social-link"
-                  aria-label="Email"
+                  href="/blog"
+                  className="btn btn-outline"
+                  style={{ borderColor: 'var(--color-accent)', color: 'var(--color-accent)' }}
                 >
-                  <MailIcon />
+                  Blog ↗
                 </a>
-              )}
-              {profile.github && (
-                <a
-                  href={`https://github.com/${profile.github}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  aria-label="GitHub"
-                >
-                  <GithubIcon />
-                </a>
-              )}
-              {profile.linkedin && (
-                <a
-                  href={`https://linkedin.com/in/${profile.linkedin}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  aria-label="LinkedIn"
-                >
-                  <LinkedinIcon />
-                </a>
-              )}
-              {profile.googleScholar && (
-                <a
-                  href={`https://scholar.google.com/citations?user=${profile.googleScholar}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  aria-label="Google Scholar"
-                >
-                  <ScholarIcon />
-                </a>
-              )}
+              </div>
+
+              {/* Social icons */}
+              <div className="hero-socials" style={{ marginTop: '1.5rem' }}>
+                {profile.email && (
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="social-link"
+                    aria-label="Email"
+                  >
+                    <MailIcon />
+                  </a>
+                )}
+                {profile.github && (
+                  <a
+                    href={`https://github.com/${profile.github}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label="GitHub"
+                  >
+                    <GithubIcon />
+                  </a>
+                )}
+                {profile.linkedin && (
+                  <a
+                    href={`https://linkedin.com/in/${profile.linkedin}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label="LinkedIn"
+                  >
+                    <LinkedinIcon />
+                  </a>
+                )}
+                {profile.googleScholar && (
+                  <a
+                    href={`https://scholar.google.com/citations?user=${profile.googleScholar}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label="Google Scholar"
+                  >
+                    <ScholarIcon />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
