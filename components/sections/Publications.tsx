@@ -27,110 +27,107 @@ export default function Publications({ onItemClick, items }: PublicationsProps) 
         {items.length === 0 ? (
           <p className="empty-note">Papers coming soon.</p>
         ) : (
-          <div className="pub-list">
-            {items.map((pub, i) => (
-              <article
-                key={pub.slug || i}
-                className={`pub-card${(pub.slug || pub.content) ? " clickable" : ""}`}
-                onClick={() => (pub.slug || pub.content) && onItemClick(pub)}
-              >
-                {/* Badges row */}
-                <div className="pub-badges">
-                  {pub.badge && (
-                    <span className="badge badge-conference">{pub.badge}</span>
-                  )}
-                  <span
-                    className={`badge ${pub.type === "preprint"
-                        ? "badge-preprint"
-                        : "badge-conference"
-                      }`}
-                  >
-                    {pub.venue}
-                  </span>
-                  <span className="pub-year">{pub.year}</span>
-                </div>
-
-                {/* Title */}
-                <h3 className="pub-title">
-                  {pub.links?.paper ? (
-                    <a
-                      href={pub.links.paper}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {pub.title}
-                    </a>
-                  ) : (
-                    pub.title
-                  )}
-                </h3>
-
-                {/* Authors */}
-                <p className="pub-authors">{renderAuthors(pub.authors)}</p>
-
-                {/* Links */}
-                {pub.links && (
-                  <div className="pub-links">
-                    {pub.links.arxiv && (
-                      <a
-                        href={pub.links.arxiv}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="pub-link"
-                      >
-                        arXiv
-                      </a>
+          <div className="teaching-container">
+            <ul className="teaching-list">
+              {items.map((pub, i) => (
+                <li key={pub.slug || i} style={{ listStyle: "none", marginBottom: "1.5rem" }}>
+                  {/* Badges on their own line, aligned with the title text */}
+                  <div className="pub-badges" style={{ display: "flex", gap: "0.4rem", marginBottom: "0.4rem", paddingLeft: "1.25rem" }}>
+                    {pub.venue && (
+                      <span className="badge badge-preprint">{pub.venue}</span>
                     )}
-                    {pub.links.paper && (
-                      <a
-                        href={pub.links.paper}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="pub-link"
-                      >
-                        Paper
-                      </a>
-                    )}
-                    {pub.links.code && (
-                      <a
-                        href={pub.links.code}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="pub-link"
-                      >
-                        Code
-                      </a>
-                    )}
-                    {pub.links.poster && (
-                      <a
-                        href={pub.links.poster}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="pub-link"
-                      >
-                        Poster
-                      </a>
-                    )}
-                    {pub.links.project && (
-                      <a
-                        href={pub.links.project}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="pub-link"
-                      >
-                        Project
-                      </a>
+                    {pub.badge && (
+                      <span className="badge badge-conference">{pub.badge}</span>
                     )}
                   </div>
-                )}
-              </article>
-            ))}
+
+                  {/* Title row with bullet point */}
+                  <div className="teaching-item">
+                    <div className="teaching-main">
+                      <div className="teaching-title">
+                        {(pub.slug || pub.content) ? (
+                          <span
+                            className="clickable-title"
+                            onClick={() => onItemClick(pub)}
+                          >
+                            {pub.title}
+                          </span>
+                        ) : (
+                          <span>{pub.title}</span>
+                        )}
+                      </div>
+                      <span className="teaching-period">
+                        {pub.year}
+                      </span>
+                      <div className="teaching-org" style={{ marginTop: "0.25rem" }}>
+                        <p className="pub-authors">{renderAuthors(pub.authors)}</p>
+                        
+                        {/* Links */}
+                        {pub.links && (
+                          <div className="pub-links" style={{ marginTop: "0.6rem" }}>
+                            {pub.links.arxiv && (
+                              <a
+                                href={pub.links.arxiv}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="pub-link"
+                              >
+                                arXiv
+                              </a>
+                            )}
+                            {pub.links.paper && (
+                              <a
+                                href={pub.links.paper}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="pub-link"
+                              >
+                                Paper
+                              </a>
+                            )}
+                            {pub.links.code && (
+                              <a
+                                href={pub.links.code}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="pub-link"
+                              >
+                                Code
+                              </a>
+                            )}
+                            {pub.links.poster && (
+                              <a
+                                href={pub.links.poster}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="pub-link"
+                              >
+                                Poster
+                              </a>
+                            )}
+                            {pub.links.project && (
+                              <a
+                                href={pub.links.project}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="pub-link"
+                              >
+                                Project
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>
