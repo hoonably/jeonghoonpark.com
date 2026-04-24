@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense, useRef } from "react";
+import React from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Footer from "@/components/layout/Footer";
 import { formatYmdForDisplay } from "@/app/lib/date";
@@ -15,19 +17,7 @@ type BlogPost = {
   excerpt: string;
 };
 
-const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
-  Study: { bg: "rgba(37,99,235,0.12)", text: "#2563eb" },
-  Algorithm: { bg: "rgba(124,58,237,0.12)", text: "#7c3aed" },
-  Talk: { bg: "rgba(16,185,129,0.12)", text: "#10b981" },
-  Review: { bg: "rgba(245,158,11,0.12)", text: "#f59e0b" },
-  Project: { bg: "rgba(239,68,68,0.12)", text: "#ef4444" },
-  Tip: { bg: "rgba(236,72,153,0.12)", text: "#db2777" },
-  "Paper Review": { bg: "rgba(245,158,11,0.12)", text: "#f59e0b" },
-};
-
-function getCategoryStyle(category: string) {
-  return CATEGORY_COLORS[category] ?? { bg: "rgba(100,116,139,0.12)", text: "#64748b" };
-}
+import { getCategoryStyle } from "@/app/lib/blog";
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
@@ -46,13 +36,40 @@ function CategorySection({
   showHeader: boolean;
 }) {
   const [page, setPage] = useState(0);
+  const scrollRef = React.useRef<HTMLDivElement>(null);
   const totalPages = Math.ceil(posts.length / PAGE_SIZE);
-  // showHeader는 activeCategory === "All"일 때 true입니다. 
-  // 즉, 특정 카테고리를 눌렀을 때는 페이지네이션 없이 전체를 보여줍니다.
   const isPaginated = showHeader;
-  const paginated = isPaginated
-    ? posts.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)
-    : posts;
+
+  // Split posts into pages if paginated
+  const pages = useMemo(() => {
+    if (!isPaginated) return [posts];
+    const chunks = [];
+    for (let i = 0; i < posts.length; i += PAGE_SIZE) {
+      chunks.push(posts.slice(i, i + PAGE_SIZE));
+    }
+    return chunks;
+  }, [posts, isPaginated]);
+
+  // Sync page state with scroll position
+  const handleScroll = () => {
+    if (!scrollRef.current || !isPaginated) return;
+    const { scrollLeft, clientWidth } = scrollRef.current;
+    const newPage = Math.round(scrollLeft / clientWidth);
+    if (newPage !== page) {
+      setPage(newPage);
+    }
+  };
+
+  // Scroll to page when button is clicked
+  const goToPage = (idx: number) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTo({
+      left: idx * scrollRef.current.clientWidth,
+      behavior: "smooth",
+    });
+    setPage(idx);
+  };
+
   const style = getCategoryStyle(category);
 
   return (
@@ -69,27 +86,37 @@ function CategorySection({
         </div>
       )}
 
-      <ul className="blog-post-list">
-        {paginated.map((post) => (
-          <li key={post.slug}>
-            <Link href={`/blog/${post.slug}`} className="blog-post-row">
-              <div className="blog-post-row-left">
-                {post.tags.filter(Boolean).length > 0 && (
-                  <div className="blog-post-tags-row">
-                    {post.tags.filter(Boolean).map((tag) => (
-                      <span key={tag} className="blog-post-tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-                <div className="blog-post-title-wrapper">
-                  <span className="blog-post-title">{post.title}</span>
-                </div>
-              </div>
-              <time className="blog-post-date">{formatDate(post.dateStr)}</time>
-            </Link>
-          </li>
+      <div 
+        className={isPaginated ? "blog-scroll-container" : ""} 
+        ref={scrollRef}
+        onScroll={handleScroll}
+      >
+        {pages.map((pagePosts, idx) => (
+          <div key={idx} className={isPaginated ? "blog-page-slide" : ""}>
+            <ul className="blog-post-list">
+              {pagePosts.map((post) => (
+                <li key={post.slug}>
+                  <Link href={`/blog/${post.slug}`} className="blog-post-row">
+                    <div className="blog-post-row-left">
+                      {post.tags.filter(Boolean).length > 0 && (
+                        <div className="blog-post-tags-row">
+                          {post.tags.filter(Boolean).map((tag) => (
+                            <span key={tag} className="blog-post-tag">{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="blog-post-title-wrapper">
+                        <span className="blog-post-title">{post.title}</span>
+                      </div>
+                    </div>
+                    <time className="blog-post-date">{formatDate(post.dateStr)}</time>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {isPaginated && totalPages > 1 && (
         <div className="blog-pagination">
@@ -97,7 +124,7 @@ function CategorySection({
             <button
               key={i}
               className={`blog-page-btn${page === i ? " active" : ""}`}
-              onClick={() => setPage(i)}
+              onClick={() => goToPage(i)}
               aria-label={`Page ${i + 1}`}
             >
               {i + 1}
@@ -109,8 +136,18 @@ function CategorySection({
   );
 }
 
-export default function BlogClientPage({ posts }: { posts: BlogPost[] }) {
+function BlogContent({ posts }: { posts: BlogPost[] }) {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+
   const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  // Sync activeCategory with query param
+  useEffect(() => {
+    if (categoryParam) {
+      setActiveCategory(categoryParam);
+    }
+  }, [categoryParam]);
 
   const categories = useMemo(() => {
     const cats = Array.from(new Set(posts.map((p) => p.category)));
@@ -119,7 +156,8 @@ export default function BlogClientPage({ posts }: { posts: BlogPost[] }) {
 
   const grouped = useMemo(() => {
     if (activeCategory !== "All") {
-      return { [activeCategory]: posts.filter((p) => p.category === activeCategory) };
+      const filtered = posts.filter((p) => p.category === activeCategory);
+      return filtered.length > 0 ? { [activeCategory]: filtered } : {};
     }
     const map: Record<string, BlogPost[]> = {};
     for (const post of posts) {
@@ -171,5 +209,13 @@ export default function BlogClientPage({ posts }: { posts: BlogPost[] }) {
       </div>
       <Footer />
     </main>
+  );
+}
+
+export default function BlogClientPage({ posts }: { posts: BlogPost[] }) {
+  return (
+    <Suspense fallback={<div>Loading blog...</div>}>
+      <BlogContent posts={posts} />
+    </Suspense>
   );
 }

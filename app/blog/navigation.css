@@ -87,3 +87,12 @@
     flex-direction: column;
   }
 }
+
+.category-link {
+  transition: color 0.2s ease;
+}
+
+.category-link:hover {
+  border: 1.5px solid var(--color-accent) !important;
+  transform: translateY(-1px);
+}

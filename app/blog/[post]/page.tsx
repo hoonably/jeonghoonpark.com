@@ -10,6 +10,7 @@ import "@/app/globals.css";
 import "../notion.css";
 import "../navigation.css";
 import "katex/dist/katex.min.css";
+import { getCategoryStyle } from "@/app/lib/blog";
 import Giscus from "./Giscus";
 import Footer from "@/components/layout/Footer";
 
@@ -71,23 +72,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
 
         <h1 className="blog-hero-title">{title || "Untitled"}</h1>
         
-        {/* Post Metadata Row */}
         <div className="blog-post-row" style={{ borderBottom: "none", padding: "0", marginTop: "1rem" }}>
           <div className="blog-post-row-left">
+            {category && (
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.6rem" }}>
+                <Link 
+                  href={`/blog?category=${category}`} 
+                  className="blog-pill active category-link" 
+                  style={{ 
+                    background: getCategoryStyle(category).bg, 
+                    color: getCategoryStyle(category).text, 
+                    border: "1.5px solid transparent",
+                    textDecoration: "none" 
+                  }}
+                >
+                  <span style={{ marginRight: "0.4rem", opacity: 0.8 }}>←</span>
+                  {category}
+                </Link>
+              </div>
+            )}
             {tagList.length > 0 && (
               <div className="blog-post-tags-row">
+                <span style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", fontWeight: 600, marginRight: "0.15rem" }}>Tag:</span>
                 {tagList.map((tag: string) => (
-                  <span key={tag} className="blog-post-tag">{tag}</span>
+                  <span key={tag} className="blog-post-tag" style={{ fontSize: "0.72rem" }}>{tag}</span>
                 ))}
               </div>
             )}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.5rem" }}>
-              {category && (
-                 <span className="blog-post-tag" style={{ background: "transparent", fontWeight: 700 }}>
-                   {category}
-                 </span>
-              )}
-            </div>
           </div>
           <time className="blog-post-date">{dateStr}</time>
         </div>
@@ -169,8 +180,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ post:
         <PostNavigation currentSlug={resolvedParams.post} category={category} />
 
         <Giscus />
-        <Footer />
       </article>
+      <Footer />
     </main>
   );
 }
