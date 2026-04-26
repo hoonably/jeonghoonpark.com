@@ -1,8 +1,7 @@
 ---
-title: "One-Year Continuous Problem Solving Challenge"
-description: "Solved 1,000+ algorithmic problems every day of 2024 for all 365 days."
+title: "One-Year Problem Solving Challenge"
+description: "Solved 1,000+ algorithmic problems every day for 366 days in 2024."
 period: "2024.01 – 2024.12"
-img: /images/projects/baekjoon.webp
 tech: ["C++", "Algorithms", "Data Structures"]
 github: https://github.com/hoonably/PS
 page: https://www.acmicpc.net/user/hoonably
