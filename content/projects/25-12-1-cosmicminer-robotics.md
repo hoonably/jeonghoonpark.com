@@ -1,5 +1,5 @@
 ---
-title: "Multi-Agent Drone Exploration"
+title: "CosmicMiner Robotics"
 description: "Developed a multi drone system with autonomous coordination and planning."
 period: "2025.09 – 2025.12"
 img: /images/projects/drone-exploration.webp
